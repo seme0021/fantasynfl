@@ -5,8 +5,8 @@ from sklearn.utils import shuffle
 from sklearn import ensemble
 
 class FantasyStats(classmethod):
-    def __init__(self, df):
-        self.score_year=2013
+    def __init__(self, df, score_year):
+        self.score_year=score_year
         self.df=df
         self.df_train = pd.DataFrame()
         self.df_valid = pd.DataFrame()
@@ -135,6 +135,7 @@ class FantasyStats(classmethod):
         df_combined['p_score'] = pred_act
 
         df_combined.reset_index(inplace=True, drop=True)
+        df_combined.sort()
         df_combined['p_rank'] = df_combined.groupby(['year'])['p_score'].rank(ascending=ascending_order)
 
 
